@@ -6,7 +6,7 @@ const clickCountElement = document.querySelector(".click span");
 const btnboard = document.querySelector("#btnboard");
 const copyData = document.querySelector("#copydata");
 const lastDiv = document.querySelector("#lastDiv");
-
+const btn2=document.querySelector(".btn2")
 const flipCardsBack = document.querySelectorAll(".flip-card-back");
 
 let score = 0;
@@ -40,7 +40,9 @@ button.addEventListener('click', function () {
   details.style.display = "block";
   name1.style.display = "none";
   button.style.display = 'none';
-  parentDiv.style.display = 'flex';
+  parentDiv.style.display = '  flex ';
+
+  btn2.style.display="none"
 
   startTimer();
 
@@ -96,7 +98,7 @@ function startTimer() {
       setTimeout(() => {
         name1.style.display = "block";
         button.style.display = 'block';
-      
+        alert(`Time's up! Your score is ${score}  ${clicks}  ${timeLeft}`);
 
     },5000);
     }
@@ -130,7 +132,7 @@ flipCards.forEach(card => {
     }
   });
 });
-
+const totalPairs = images.length;
 function checkMatch() {
   const [card1, card2] = flippedCards;
   const img1 = card1.querySelector('.flip-card-back img').src;
@@ -145,6 +147,12 @@ function checkMatch() {
     localStorage.setItem("localdata", JSON.stringify(getArr));
 
     flippedCards = [];
+     if (score === totalPairs) {
+      clearInterval(timerInterval); 
+      setTimeout(() => {
+        alert(`🎉 Congratulations ${getArr[getArr.length - 1].name}! You won the game! \nScore: ${score}, Clicks: ${clicks}, Time Left: ${timeLeft}`);
+      }, 500);
+    }
   } else {
     setTimeout(() => {
       card1.querySelector('.flip-card-inner').style.transform = 'rotateY(0deg)';
